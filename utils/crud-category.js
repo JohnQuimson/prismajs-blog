@@ -2,10 +2,12 @@ const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
-const createCategory = (data, cf) => {
+const createCategory = (categoryNames, cf) => {
   prisma.category
-    .create({ data })
-    .then((p) => cf(p))
+    .createMany({
+      data: categoryNames.map((categoryNames) => ({ name: categoryNames })),
+    })
+    .then((count) => cf(count))
     .catch((err) => console.error(err));
 };
 

@@ -2,10 +2,12 @@ const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
-const createTag = (data, cf) => {
+const createTag = (tags, cf) => {
   prisma.tag
-    .create({ data })
-    .then((p) => cf(p))
+    .createMany({
+      data: tags.map((tag) => ({ name: tag })),
+    })
+    .then((count) => cf(count))
     .catch((err) => console.error(err));
 };
 
