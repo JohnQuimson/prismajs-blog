@@ -14,22 +14,32 @@ datasource db {
 }
 
 model Post {
+  id         Int       @id @default(autoincrement())
+  title      String
+  slug       String    @unique
+  image      String?
+  content    String
+  published  Boolean
+  Category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+  tag        tag?      @relation(fields: [tagId], references: [id])
+  tagId      Int?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Category {
   id        Int      @id @default(autoincrement())
-  title     String
-  slug      String   @unique
-  image     String?
-  content   String
-  published Boolean
+  name      String
+  posts     Post[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Category {
-  id   Int    @id @default(autoincrement())
-  name String
-}
-
 model tag {
-  id   Int    @id @default(autoincrement())
-  name String
+  id        Int      @id @default(autoincrement())
+  name      String
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
