@@ -1,9 +1,9 @@
 const {
   createPost,
+  readPostBySlug,
   readPosts,
-  readPostById,
-  updatePostById,
-  deletePostById,
+  updatePostBySlug,
+  deletePostBySlug,
 } = require('./utils/crud-post.js');
 
 const { createCategory } = require('./utils/crud-category.js');
