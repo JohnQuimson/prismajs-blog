@@ -22,8 +22,7 @@ model Post {
   published  Boolean
   Category   Category? @relation(fields: [categoryId], references: [id])
   categoryId Int?
-  tag        tag?      @relation(fields: [tagId], references: [id])
-  tagId      Int?
+  tags       Tag[]
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 }
@@ -36,7 +35,7 @@ model Category {
   updatedAt DateTime @updatedAt
 }
 
-model tag {
+model Tag {
   id        Int      @id @default(autoincrement())
   name      String
   posts     Post[]
